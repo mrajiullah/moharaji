@@ -1,0 +1,22 @@
+---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/education", label: "Education" },
+  { href: "/publications", label: "Publications" },
+  { href: "/teaching", label: "Teaching" },
+];
+---
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,251,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(16,24,40,0.08);">
+  <div class="container" style="display:flex; align-items:center; justify-content:space-between; padding:.75rem 0;">
+    <a href="/" style="display:flex; align-items:center; gap:.65rem; font-weight:800;">
+      <span class="pill" style="font-weight:800; color:#101828;">KAU</span>
+      <span>Karlstad University</span>
+    </a>
+
+    <nav style="display:flex; gap:1rem; flex-wrap:wrap;">
+      {links.map(l => (
+        <a href={l.href} class="pill" style="font-weight:600;">{l.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>

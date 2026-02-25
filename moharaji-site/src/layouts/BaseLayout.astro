@@ -1,0 +1,27 @@
+---
+const { title = "Mohammad AJI" } = Astro.props;
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content="Personal academic webpage" />
+  </head>
+  <body>
+    <Nav />
+    <main class="container" style="padding: 1.25rem 0 3rem;">
+      <slot />
+    </main>
+    <footer class="container small" style="padding: 1.5rem 0 3rem;">
+      <div class="divider"></div>
+      <div style="display:flex; flex-wrap:wrap; gap:.75rem; justify-content:space-between; align-items:center;">
+        <span>© {new Date().getFullYear()} Mohammad Rajiullah</span>
+        <span>Built with Astro • Hosted on Cloudflare Pages</span>
+      </div>
+    </footer>
+  </body>
+</html>

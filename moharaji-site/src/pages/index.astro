@@ -1,17 +1,123 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import ContactCard from "../components/ContactCard.astro";
 ---
+<BaseLayout title="Mohammad Rajiullah — Karlstad University">
+  <Hero
+    name="Mohammad Rajiullah"
+    titleLine="Senior Lecturer, Department of Computer Science, Karlstad University"
+    tags={["Performance Analysis", "5G & Beyond", "Network Management", "QoE"]}
+    actions={[
+      { label: "Email me", href: "mailto:mohammad.rajiullah@kau.se", primary: true },
+    { label: "Google Scholar", href: "https://scholar.google.com/citations?user=LnGLO1EAAAAJ", external: true },
+      { label: "View publications", href: "/publications" },
+      { label: "Download CV", href: "/cv.pdf" },
+    ]}
+  />
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <div style="height: 1rem;"></div>
+
+  <div class="grid">
+    <section class="card section">
+      <h2>About</h2>
+      <div style="display:grid; grid-template-columns: 180px 1fr; gap: 1rem; align-items:start;">
+        <img
+          src="/images/mraj.jpg"
+          alt="Portrait of Mohammad AJI"
+          style="width:180px; height:220px; object-fit:cover; border-radius: 14px; border:1px solid rgba(16,24,40,0.10);"
+        />
+	    <div>
+      <p>
+        I am <strong>Mohammad Rajiullah</strong>, Senior Lecturer in the 
+        <a href="https://www.kau.se/en/cs" target="_blank" rel="noopener">
+          Department of Computer Science
+        </a> 
+        at Karlstad University, Sweden. My research focuses on low-latency networking, 
+        web performance, and mobile broadband (MBB) systems, including 5G/6G, 
+        satellite Internet, and the Internet of Things (IoT). I am particularly 
+        interested in how next-generation networks can enhance user experience 
+        in remote education and smart healthcare.
+      </p>
+
+      <p>
+        I have been actively involved in several national and international research projects. 
+        Recently, I concluded the 
+	<a href="https://verticals-tracker.sns-ju.eu/vertical-engagement-tracker/vertical-cartography/6g-sandbox-7" target="_blank" rel="noopener"><strong>MAGDALENA</strong></a>
+        and 
+        <a href="https://imagineb5g.eu/simone-in-imagine-b5g-open-call-2/" target="_blank" rel="noopener"><strong>SIMONE</strong></a> 
+        open call projects under the 
+        <a href="https://6g-sandbox.eu" target="_blank" rel="noopener">EU 6G-SANDBOX</a> 
+        and 
+        <a href="https://imagineb5g.eu" target="_blank" rel="noopener">EU IMAGINE-B5G</a> 
+        initiatives, serving as Principal Investigator (PI).
+      </p>
+
+      <p>
+        I am currently engaged in the XR health training use case of the 
+        <a href="https://6gpath.eu" target="_blank" rel="noopener"><strong>6G-PATH</strong></a> 
+        project.
+      </p>
+
+      <p>
+        I also contribute to the ERASMUS project 
+        <a href="https://5g-digits.eu" target="_blank" rel="noopener"><strong>5G-DiGITs</strong></a>, 
+        and the national eight-year project 
+        <a href="https://www.kau.se/en/cs-drive" target="_blank" rel="noopener"><strong>DRIVE</strong></a>.
+      </p>
+
+      <p>
+        Previously, I participated in EU-funded projects including 
+        <strong>5GENESIS</strong>, <strong>MONROE</strong>, 
+        <strong>NEAT</strong>, and <strong>RITE</strong>.
+      </p>
+    </div>
+    </div>
+      <div class="divider"></div>
+
+	<h2>Current Research Projects</h2>
+<div style="display:flex; flex-wrap:wrap; gap:.5rem;">
+  <a class="pill" href="https://www.kau.se/en/cs-drive" target="_blank" rel="noopener">DRIVE</a>
+  <a class="pill" href="https://5g-digits.eu/" target="_blank" rel="noopener">5G-DiGITs</a>
+  <a class="pill" href="https://6gpath.eu/" target="_blank" rel="noopener">6G-PATH</a>
+</div>
+
+      <div class="divider"></div>
+
+      <h2>Quick links</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:.75rem;">
+        <a class="btn" href="/education">Education</a>
+        <a class="btn" href="/teaching">Teaching</a>
+        <a class="btn" href="/publications">Publications</a>
+      </div>
+    </section>
+
+    <div style="display:flex; flex-direction:column; gap: 1.25rem;">
+      <ContactCard
+        email="mohammad.rajiullah@kau.se"
+        phone="+46 ..."
+        office="21C 402"
+        departmentUrl="https://www.kau.se/en/cs"
+        scholarUrl="https://scholar.google.com/citations?user=LnGLO1EAAAAJ"
+      />
+
+      <section class="card section">
+        <h2>Selected publications</h2>
+        <div class="small" style="display:flex; flex-direction:column; gap:.75rem;">
+          <div>
+            <strong>Towards Load Balancing in Mobile Broadband Networks with Multi-Connectivity</strong>
+            <div>Nisat Hispat Hug et al. • 2021</div>
+          </div>
+          <div class="divider"></div>
+          <div>
+            <strong>Smartphone QoE: Measuring the…”</strong>
+            <div>Steffens, AJI, … • 2017</div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;">
+          <a class="btn" href="/publications">View all publications</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

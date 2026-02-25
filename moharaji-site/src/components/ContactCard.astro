@@ -1,0 +1,22 @@
+---
+const { email, phone, office, scholarUrl, departmentUrl } = Astro.props;
+---
+<aside class="card section">
+  <h2>Contact</h2>
+
+  <div class="small" style="display:flex; flex-direction:column; gap:.5rem;">
+    <div><strong>Email:</strong> <a href={`mailto:${email}`}>{email}</a></div>
+    {phone && <div><strong>Phone:</strong> {phone}</div>}
+    {office && <div><strong>Office:</strong> {office}</div>}
+    {departmentUrl && <div><strong>Department:</strong> <a href={departmentUrl} target="_blank" rel="noopener">Computer Science, KAU</a></div>}
+  </div>
+
+  <div class="divider"></div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:.75rem;">
+    {scholarUrl && (
+      <a class="btn" href={scholarUrl} target="_blank" rel="noopener">Google Scholar</a>
+    )}
+    <a class="btn" href="/publications">Publications</a>
+  </div>
+</aside>

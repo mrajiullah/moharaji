@@ -1,0 +1,247 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import bibtexParse from "bibtex-parse-js";
+import bibRaw from "../data/publications.bib?raw";
+
+const scholarUrl = "https://scholar.google.com/citations?user=LnGLO1EAAAAJ&hl=en";
+
+// Parse BibTeX
+const parsed = bibtexParse.toJSON(bibRaw);
+
+// ----------------------
+// Helpers
+// ----------------------
+
+function cleanLatex(s = "") {
+  return String(s)
+    .replace(/\\textbf\{([^}]*)\}/g, "$1")
+    .replace(/[{}]/g, "")
+    .replace(/\\"o/g, "ö")
+    .replace(/\\"O/g, "Ö")
+    .replace(/\\"a/g, "ä")
+    .replace(/\\"A/g, "Ä")
+    .replace(/\\"u/g, "ü")
+    .replace(/\\"U/g, "Ü")
+    .replace(/\\'e/g, "é")
+    .replace(/\\'E/g, "É")
+    .replace(/\\`e/g, "è")
+    .replace(/\\`E/g, "È")
+    .replace(/\\~n/g, "ñ")
+    .replace(/\\~N/g, "Ñ")
+    .replace(/\\/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function highlightMe(authors = "") {
+  // Bold common variants of your name in the author string
+  // Examples: "Rajiullah, Mohammad", "Mohammad Rajiullah", "Rajiullah, M.", "M. Rajiullah"
+  return String(authors).replace(
+    /\b(Rajiullah(?:,\s*(?:Mohammad|M\.)|(?:\s+Mohammad)?)?)\b/gi,
+    "<strong>$1</strong>"
+  );
+}
+
+function yearOf(e) {
+  const y = e?.entryTags?.year;
+  const n = Number(String(y || "").replace(/[^\d]/g, ""));
+  return Number.isFinite(n) ? n : 0;
+}
+
+function primaryLink(e) {
+  const t = e?.entryTags || {};
+  const doi = (t.doi || "").trim();
+  const url = (t.url || "").trim();
+
+  const doiUrl =
+    doi && doi.startsWith("http")
+      ? doi
+      : doi
+      ? `https://doi.org/${doi}`
+      : "";
+
+  return { doi: doiUrl, url };
+}
+
+function venueLine(e) {
+  const t = e?.entryTags || {};
+  const journal = cleanLatex(t.journal || "");
+  const booktitle = cleanLatex(t.booktitle || "");
+  const venue = journal || booktitle || "";
+  const vol = cleanLatex(t.volume || "");
+  const num = cleanLatex(t.number || "");
+  const pages = cleanLatex(t.pages || "");
+
+  let parts = [];
+  if (venue) parts.push(venue);
+  if (vol) parts.push(`vol. ${vol}`);
+  if (num) parts.push(`no. ${num}`);
+  if (pages) parts.push(`pp. ${pages}`);
+
+  return parts.join(" • ");
+}
+
+function typeBadge(e) {
+  const type = (e.entryType || "").toLowerCase();
+  const t = e.entryTags || {};
+  const bt = cleanLatex(t.booktitle || "").toLowerCase();
+  const note = cleanLatex(t.note || "").toLowerCase();
+  const keywords = String(t.keywords || "").toLowerCase();
+  const title = cleanLatex(t.title || "").toLowerCase();
+
+  // Posters: your bib has several "poster:" / "poster paper" entries
+  const isPoster =
+    type === "misc" ||
+    bt.includes("poster") ||
+    note.includes("poster") ||
+    title.includes("poster") ||
+    keywords.includes("poster");
+
+  if (isPoster) return "Poster";
+
+  // Journals
+  if (type === "article") return "Journal";
+
+  // Conferences / workshops
+  if (type === "inproceedings") {
+    const looksWorkshop =
+      bt.includes("workshop") ||
+      bt.includes("wintech") ||
+      bt.includes("mobiwac") ||
+      bt.includes("sigcomm workshop") ||
+      bt.includes("workshop on");
+
+    return looksWorkshop ? "Workshop" : "Conference";
+  }
+
+  // Book chapter / collection
+  if (type === "incollection") return "Book chapter";
+
+  return "Other";
+}
+
+// ----------------------
+// Normalize publications
+// ----------------------
+
+const pubs = parsed
+  .map((x) => {
+    const t = x.entryTags || {};
+    const y = yearOf(x);
+
+    const title = cleanLatex(t.title || "");
+    const authors = highlightMe(cleanLatex(t.author || ""));
+    const links = primaryLink(x);
+    const venue = venueLine(x);
+    const badge = typeBadge(x);
+
+    return {
+      key: x.citationKey, // used for per-entry BibTeX download
+      year: y,
+      title,
+      authors, // contains <strong>...</strong> for your name
+      venue,
+      doi: links.doi,
+      url: links.url,
+      badge,
+    };
+  })
+  .filter((p) => p.title)
+  .sort((a, b) => (b.year - a.year) || a.title.localeCompare(b.title));
+
+// Group by year
+const byYear = pubs.reduce((acc, p) => {
+  const k = p.year || 0;
+  acc[k] = acc[k] || [];
+  acc[k].push(p);
+  return acc;
+}, {});
+
+const years = Object.keys(byYear)
+  .map(Number)
+  .sort((a, b) => b - a);
+---
+
+<BaseLayout title="Publications — Mohammad Rajiullah">
+  <section class="card section">
+    <h2>Publications</h2>
+
+    <p>
+      Full publication list is available on
+      <a href={scholarUrl} target="_blank" rel="noopener">
+        <strong>Google Scholar</strong>
+      </a>.
+    </p>
+
+    <div style="display:flex; flex-wrap:wrap; gap:.75rem; margin: 1rem 0;">
+      <a class="btn" href={scholarUrl} target="_blank" rel="noopener">
+        Open Google Scholar
+      </a>
+      <a class="btn" href="/publications.bib" download>
+        Download Full BibTeX
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    {years.map((y) => (
+      <>
+        <h2 style="margin-top: 1.5rem;">
+          {y === 0 ? "Other" : y}
+        </h2>
+
+        <ol style="display:flex; flex-direction:column; gap: 1rem; padding-left: 1.25rem;">
+          {byYear[y].map((p) => (
+            <li>
+              <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem;">
+                <div style="font-weight:800; color:#101828;">
+                  {p.title}
+                </div>
+		{p.badge && ( 
+		<span
+  class={`badge ${
+    p.badge === "Journal" ? "badge-journal" :
+    p.badge === "Conference" ? "badge-conference" :
+    p.badge === "Workshop" ? "badge-workshop" :
+    p.badge === "Poster" ? "badge-poster" :
+    p.badge === "Book chapter" ? "badge-book" :
+    "badge-other"
+  }`}
+>
+  {p.badge}
+</span>	
+			)}
+              </div>
+
+              {p.authors && (
+                <div class="small" set:html={p.authors}></div>
+              )}
+
+              {p.venue && (
+                <div class="small">{p.venue}</div>
+              )}
+
+              <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.5rem;">
+                {p.doi && (
+                  <a class="pill" href={p.doi} target="_blank" rel="noopener">
+                    DOI
+                  </a>
+                )}
+                {p.url && (
+                  <a class="pill" href={p.url} target="_blank" rel="noopener">
+                    URL
+                  </a>
+                )}
+                {p.key && (
+                  <a class="pill" href={`/cite/${p.key}.bib`} download>
+                    Cite (BibTeX)
+                  </a>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </>
+    ))}
+  </section>
+</BaseLayout>
