@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const items = [
+  {
+    title: "CARL-W: 5G + Starlink measurement platform",
+    desc: "Empirical experimentation platform combining 5G-NPN and Starlink for performance analyses.",
+    links: [
+      { label: "Project/Platform", href: "CARL_W_URL_PLACEHOLDER" },
+      { label: "Data", href: "https://zenodo.org/records/8130936" },
+    ],
+    cite: "CITE_KEY_PLACEHOLDER",
+  },
+  {
+    title: "Starlink dataset",
+    desc: "Dataset for downlink throughput/latency analysis and predictability studies.",
+    links: [
+      { label: "Dataset", href: "STARLINK_DATASET_URL_PLACEHOLDER" },
+      { label: "Paper", href: "STARLINK_PAPER_URL_PLACEHOLDER" },
+    ],
+    cite: "CITE_KEY_PLACEHOLDER",
+  },
+  {
+    title: "5G NSA measurement dataset",
+    desc: "Large-scale dataset for performance and service evolution in commercial 5G non-standalone deployments.",
+    links: [
+      { label: "Dataset", href: "5G_NSA_DATASET_URL_PLACEHOLDER" },
+      { label: "Paper", href: "5G_NSA_PAPER_URL_PLACEHOLDER" },
+    ],
+    cite: "CITE_KEY_PLACEHOLDER",
+  },
+];
+---
+
+<BaseLayout title="Data — Mohammad Rajiullah">
+  <section class="card section">
+    <h2>Data & Tools</h2>
+    <p class="small">
+      Datasets, measurement platforms, and tools related to network performance evaluation. Some artifacts may be open; others may be available upon request.
+    </p>
+
+    <div class="divider"></div>
+
+    <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap: 1.25rem;">
+      {items.map((d) => (
+        <li class="card" style="padding: 1rem;">
+          <div style="font-weight:800; color:#101828;">{d.title}</div>
+          <div class="small" style="margin-top:.35rem;">{d.desc}</div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.75rem;">
+            {d.links.map((l) => (
+              <a class="pill" href={l.href} target="_blank" rel="noopener">{l.label}</a>
+            ))}
+            {d.cite && d.cite !== "CITE_KEY_PLACEHOLDER" && (
+              <a class="pill" href={`/cite/${d.cite}.bib`} download>Cite (BibTeX)</a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

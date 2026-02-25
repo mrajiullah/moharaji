@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const current = [
+  { name: "6G-PATH", role: "Researcher", url: "https://6gpath.eu", note: "XR health training use case for remote education over 5G/6G." },
+  { name: "5G-DiGITs", role: "Researcher", url: "https://5g-digits.eu", note: "ERASMUS+ curriculum development in advanced 5G and green skills." },
+  { name: "DRIVE", role: "Researcher", url: "https://www.kau.se/en/cs-drive", note: "Data-driven, latency-sensitive mobile services for future networks." },
+];
+
+const concludedPI = [
+  { name: "MAGDALENA", role: "PI", url: "https://verticals-tracker.sns-ju.eu/vertical-engagement-tracker/vertical-cartography/6g-sandbox-7", note: "Evaluated integration of LEO satellite networks with 5G systems (6G-SANDBOX open call)." },
+  { name: "SIMONE", role: "PI", url: "https://imagineb5g.eu/simone-in-imagine-b5g-open-call-2/", note: "Developed and evaluated an immersive AR/VR education platform over 5G/6G (IMAGINE-B5G open call)." },
+];
+
+const previous = [
+  { name: "5GENESIS", role: "Researcher", url: "https://5g-ppp.eu/5genesis/" },
+  { name: "MONROE", role: "Researcher", url: "https://cordis.europa.eu/project/id/644399" },
+  { name: "NEAT", role: "Researcher", url: "https://neat.nntb.no/project/" },
+  { name: "RITE", role: "Researcher", url: "https://riteproject.wordpress.com" },
+];
+
+function roleClass(role) {
+  return role === "PI" ? "badge-journal" : "badge-other";
+}
+---
+
+<BaseLayout title="Projects — Mohammad Rajiullah">
+  <section class="card section">
+    <h2>Projects</h2>
+    <p class="small">
+      Selected projects. Role is indicated as <strong>PI</strong> or <strong>Researcher</strong>.
+    </p>
+
+    <div class="divider"></div>
+
+    <h2>Current</h2>
+    <ul style="list-style:none; padding:0; margin:0;">
+      {current.map((p) => (
+        <li style="padding: .75rem 0;">
+          <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem;">
+            <a href={p.url} target="_blank" rel="noopener" style="font-weight:800; text-decoration:none;">
+              {p.name}
+            </a>
+            <span class={`badge ${roleClass(p.role)}`}>{p.role}</span>
+          </div>
+          {p.note && <div class="small" style="margin-top:.25rem;">{p.note}</div>}
+        </li>
+      ))}
+    </ul>
+
+    <div class="divider"></div>
+
+    <h2>Concluded (Principal Investigator)</h2>
+    <ul style="list-style:none; padding:0; margin:0;">
+      {concludedPI.map((p) => (
+        <li style="padding: .75rem 0;">
+          <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem;">
+            <a href={p.url} target="_blank" rel="noopener" style="font-weight:800; text-decoration:none;">
+              {p.name}
+            </a>
+            <span class={`badge ${roleClass(p.role)}`}>{p.role}</span>
+          </div>
+          {p.note && <div class="small" style="margin-top:.25rem;">{p.note}</div>}
+        </li>
+      ))}
+    </ul>
+
+    <div class="divider"></div>
+
+    <h2>Previous</h2>
+    <ul style="list-style:none; padding:0; margin:0;">
+      {previous.map((p) => (
+        <li style="padding: .75rem 0;">
+          <div style="display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem;">
+            <a href={p.url} target="_blank" rel="noopener" style="font-weight:800; text-decoration:none;">
+              {p.name}
+            </a>
+            <span class={`badge ${roleClass(p.role)}`}>{p.role}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
