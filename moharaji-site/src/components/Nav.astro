@@ -14,11 +14,29 @@ const links = [
       <span class="pill" style="font-weight:800; color:#101828;">KAU</span>
       <span>Karlstad University</span>
     </a>
+    <nav class="topnav">
+  {links.map(l => (
+    <a href={l.href} class="pill navpill">{l.label}</a>
+  ))}
+</nav>
 
-    <nav style="display:flex; gap:1rem; flex-wrap:wrap;">
-      {links.map(l => (
-        <a href={l.href} class="pill" style="font-weight:600;">{l.label}</a>
-      ))}
-    </nav>
+<style>
+  .topnav{
+    display:flex;
+    gap:.5rem;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    max-width: 70%;
+  }
+  .navpill{
+    font-weight:600;
+    padding:.28rem .55rem;
+    font-size:.85rem;
+  }
+  @media (max-width: 640px){
+    .topnav{ max-width: 100%; justify-content:flex-start; }
+  }
+</style>
+
   </div>
 </header>

@@ -148,3 +148,37 @@ h1, h2, h3 {
   color: #374151;
   border-color: #e5e7eb;
 }
+
+
+/* ---------------------------
+   Responsive layout
+---------------------------- */
+
+@media (max-width: 900px) {
+
+  /* Make main layout single column */
+  .grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reduce card padding slightly */
+  .card {
+    padding: 1rem;
+  }
+
+  /* Make buttons wrap nicely */
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+}
+
+
+@media (max-width: 640px) {
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+}

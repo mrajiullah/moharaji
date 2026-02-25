@@ -21,7 +21,7 @@ import ContactCard from "../components/ContactCard.astro";
   <div class="grid">
     <section class="card section">
       <h2>About</h2>
-      <div style="display:grid; grid-template-columns: 180px 1fr; gap: 1rem; align-items:start;">
+      <div class="aboutgrid">
         <img
           src="/images/mraj.jpg"
           alt="Portrait of Mohammad AJI"
@@ -129,4 +129,21 @@ import ContactCard from "../components/ContactCard.astro";
       </section>
     </div>
   </div>
+  <style>
+  .aboutgrid{
+    display:grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1rem;
+    align-items:start;
+  }
+  @media (max-width: 640px){
+    .aboutgrid{
+      grid-template-columns: 1fr;
+    }
+    .aboutgrid img{
+      width: 140px !important;
+      height: 170px !important;
+    }
+  }
+</style>
 </BaseLayout>
