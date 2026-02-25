@@ -9,34 +9,29 @@ const links = [
 ];
 ---
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,251,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(16,24,40,0.08);">
-  <div class="container" style="display:flex; align-items:center; justify-content:space-between; padding:.75rem 0;">
-    <a href="/" style="display:flex; align-items:center; gap:.65rem; font-weight:800;">
-      <span class="pill" style="font-weight:800; color:#101828;">KAU</span>
-      <span>Karlstad University</span>
-    </a>
+  <div class="container" style="display:flex; align-items:center; justify-content:flex-end; padding:.75rem 0;">
     <nav class="topnav">
-  {links.map(l => (
-    <a href={l.href} class="pill navpill">{l.label}</a>
-  ))}
-</nav>
-
-<style>
-  .topnav{
-    display:flex;
-    gap:.5rem;
-    flex-wrap:wrap;
-    justify-content:flex-end;
-    max-width: 70%;
-  }
-  .navpill{
-    font-weight:600;
-    padding:.28rem .55rem;
-    font-size:.85rem;
-  }
-  @media (max-width: 640px){
-    .topnav{ max-width: 100%; justify-content:flex-start; }
-  }
-</style>
-
+      {links.map(l => (
+        <a href={l.href} class="pill navpill">{l.label}</a>
+      ))}
+    </nav>
   </div>
+
+  <style>
+    .topnav{
+      display:flex;
+      gap:.5rem;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navpill{
+      font-weight:600;
+      padding:.28rem .55rem;
+      font-size:.85rem;
+      text-decoration:none;
+    }
+    @media (max-width: 640px){
+      .topnav{ justify-content:flex-start; }
+    }
+  </style>
 </header>
