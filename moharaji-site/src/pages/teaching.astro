@@ -1,9 +1,111 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const teachingByYear = [
+  {
+    year: 2026,
+    items: [
+      { code: "DVAD70", title: "Internet of Things", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD70" },
+      { code: "DVAD71", title: "Internet of Things, Application Areas", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD71" },
+      { code: "DVAD72", title: "Internet of Things, Infrastructures", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD72" },
+      { code: "DVAD73", title: "Internet of Things, Data Management", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD73" },
+      { code: "DVAD74", title: "Internet of Things, Privacy and Security", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD74" },
+      { code: "DVAD75", title: "Internet of Things, Energy Optimization", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD75" },
+    ],
+  },
+  {
+    year: 2025,
+    items: [
+      { code: "DVAD70", title: "Internet of Things", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD70" },
+      { code: "DVAD71", title: "Internet of Things, Application Areas", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD71" },
+      { code: "DVAD72", title: "Internet of Things, Infrastructures", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD72" },
+      { code: "DVAD73", title: "Internet of Things, Data Management", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD73" },
+      { code: "DVAD74", title: "Internet of Things, Privacy and Security", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD74" },
+      { code: "DVAD75", title: "Internet of Things, Energy Optimization", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD75" },
+      { code: "DVGB19", title: "Operating system", term: "Fall", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVGB19" },
+      { code: "DVAD21", title: "Internet Architectures and Protocols", term: "Fall", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD21" },
+    ],
+  },
+  {
+    year: 2024,
+    items: [
+      { code: "DVAD70", title: "Internet of Things", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD70" },
+      { code: "DVAD71", title: "Internet of Things, Application Areas", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD71" },
+      { code: "DVAD72", title: "Internet of Things, Infrastructures", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD72" },
+      { code: "DVAD73", title: "Internet of Things, Data Management", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD73" },
+      { code: "DVAD74", title: "Internet of Things, Privacy and Security", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD74" },
+      { code: "DVAD75", title: "Internet of Things, Energy Optimization", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD75" },
+      { code: "DVGB19", title: "Operating system", term: "Fall", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVGB19" },
+    ],
+  },
+  {
+    year: 2023,
+    items: [
+      { code: "DVGB02", title: "Computer Networking I", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVGB02" },
+      { code: "DVAD70", title: "Internet of Things", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD70" },
+      { code: "DVAD71", title: "Internet of Things, Application Areas", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD71" },
+      { code: "DVAD72", title: "Internet of Things, Infrastructures", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD72" },
+      { code: "DVAD73", title: "Internet of Things, Data Management", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD73" },
+      { code: "DVAD74", title: "Internet of Things, Privacy and Security", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD74" },
+      { code: "DVAD75", title: "Internet of Things, Energy Optimization", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD75" },
+      { code: "DVGB01", title: "Operating System", term: "Fall", url: "https://www3.kau.se/kursplaner/en/DVGB01_20182_en.pdf" },
+    ],
+  },
+  {
+    year: 2022,
+    items: [
+      { code: "DVGB02", title: "Computer Networking I", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVGB02" },
+      { code: "DVAD70", title: "Internet of Things", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD70" },
+      { code: "DVGB01", title: "Operating System", term: "Fall", url: "https://www3.kau.se/kursplaner/en/DVGB01_20182_en.pdf" },
+    ],
+  },
+  {
+    year: 2021,
+    items: [
+      { code: "DVGB02", title: "Computer Networking I", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVGB02" },
+      { code: "DVAD70", title: "Internet of Things", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVAD70" },
+    ],
+  },
+  {
+    year: 2020,
+    items: [
+      { code: "DVGB02", title: "Computer Networking I", term: "Spring", url: "https://www.kau.se/en/education/programmes-and-courses/courses/DVGB02" },
+    ],
+  },
+];
 ---
-<BaseLayout title="Teaching — Mohammad AJI">
+
+<BaseLayout title="Teaching — Mohammad Rajiullah">
   <section class="card section">
     <h2>Teaching</h2>
-    <p>List courses, roles, and links to syllabi/resources.</p>
+    <p class="small">
+      Courses taught at Karlstad University, listed from most recent to earlier years.
+    </p>
+
+    <div class="divider"></div>
+
+    {teachingByYear.map((block) => (
+      <>
+        <h2 style="margin-top: 1.5rem;">{block.year}</h2>
+
+        <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.75rem;">
+          {block.items.map((c) => (
+            <li class="card" style="padding: .9rem 1rem;">
+              <div style="display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem;">
+                <a
+                  href={c.url}
+                  target="_blank"
+                  rel="noopener"
+                  style="font-weight:800; color:#101828; text-decoration:none;"
+                >
+                  {c.code}: {c.title}
+                </a>
+                <span class="pill">{c.term}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </>
+    ))}
   </section>
 </BaseLayout>
