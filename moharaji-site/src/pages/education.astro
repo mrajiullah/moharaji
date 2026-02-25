@@ -1,9 +1,94 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const degrees = [
+  {
+    degree: "PhD in Computer Science",
+    institution: "Karlstad University",
+    country: "Sweden",
+    url: "http://www.cs.kau.se/cs/",
+  },
+  {
+    degree: "Licentiate in Computer Science",
+    institution: "Karlstad University",
+    country: "Sweden",
+    url: "http://www.cs.kau.se/cs/",
+  },
+  {
+    degree: "M.Sc. in Global Information and Telecommunication Studies",
+    institution: "Waseda University",
+    country: "Japan",
+    url: "https://www.waseda.jp/fsci/giti/en/",
+  },
+  {
+    degree: "B.Sc. in Computer Science and Engineering",
+    institution: "Islamic University of Technology",
+    country: "Bangladesh",
+    url: "http://www.iutoic-dhaka.edu/",
+  },
+];
+
+const dissertation = {
+  title: "Towards a Low Latency Internet: Understanding and Solutions.",
+  url: "https://www.diva-portal.org/smash/get/diva2:846109/FULLTEXT01.pdf",
+};
+
+const awards = [
+  {
+    text: "Japanese Grant Aid for Human Resource Development Scholarship (JDS) for master level study at Waseda University (2005–2007).",
+    url: "",
+  },
+  {
+    text: "Selected as the graduates representative of the Graduate School of Global Information and Telecommunication Studies at the graduation ceremony (20 September 2007), Waseda University.",
+  },
+  {
+    text: "Awarded by the Government of Bangladesh for excellent results in the Higher Secondary Certificate examination under Dhaka Education Board (1998).",
+  },
+];
 ---
-<BaseLayout title="Education — Mohammad AJI">
+
+<BaseLayout title="Education — Mohammad Rajiullah">
   <section class="card section">
     <h2>Education</h2>
-    <p>Add your education background here (degrees, institutions, years).</p>
+
+    <div class="divider"></div>
+
+    <h2>Degrees</h2>
+    <ul style="margin:0; padding-left: 1.25rem; display:flex; flex-direction:column; gap:.65rem;">
+      {degrees.map((d) => (
+        <li>
+          <div style="font-weight:800; color:#101828;">{d.degree}</div>
+          <div class="small">
+            <a href={d.url} target="_blank" rel="noopener">
+              {d.institution}
+            </a>, {d.country}
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <div class="divider"></div>
+
+    <h2>PhD Dissertation</h2>
+    <p class="small" style="margin-top:.5rem;">
+      <a href={dissertation.url} target="_blank" rel="noopener">
+        <strong>{dissertation.title}</strong>
+      </a>
+    </p>
+
+    <div class="divider"></div>
+
+    <h2>Honors and Awards</h2>
+    <ul style="margin:0; padding-left: 1.25rem; display:flex; flex-direction:column; gap:.65rem;">
+      {awards.map((a) => (
+        <li class="small">
+          {a.url ? (
+            <a href={a.url} target="_blank" rel="noopener">{a.text}</a>
+          ) : (
+            a.text
+          )}
+        </li>
+      ))}
+    </ul>
   </section>
 </BaseLayout>
